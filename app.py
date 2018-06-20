@@ -26,7 +26,7 @@ api.add_resource(Destinations, '/api/v0.1/atlas-obscura/destinations')
 api.add_resource(Attractions, '/api/v0.1/atlas-obscura/attractions/<string:country>')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 
 
 
