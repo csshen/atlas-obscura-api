@@ -34,6 +34,7 @@ def getDestinations(region):
         
 
 def getAttractions(country, city, sort, limit, offset):
+    print(country)
     # base url
     url = 'https://www.atlasobscura.com/things-to-do/'
     # specify CITY
@@ -54,14 +55,13 @@ def getAttractions(country, city, sort, limit, offset):
     soup = BeautifulSoup(response.content, 'html.parser')
     attractions = []
 
-    cards = soup.find_all('div', class_='index-card-wrap')
-    limit = len(cards) if limit == 0 else limit
-    for i in range(limit):
-        card = cards[i]
+    count = 0
+    for card in soup.find_all('div', class_='content-card-text'):
         # CREATE NEW ATTRACTION
         curr_attraction = {}
 
         # LOCATION (City, Town)
+
         location = card.find('div', class_='detail-sm place-card-location').text.split(',')
         # NAME
         name = card.find('span', class_='title-underline js-title-content').text
@@ -71,12 +71,20 @@ def getAttractions(country, city, sort, limit, offset):
         coord = [float(c) for c in card.find('div', class_='lat-lng').text.split(',')]
 
         curr_attraction['name'] = name
-        curr_attraction['city'] = location[0]
-        curr_attraction['country'] = location[1].strip()
+        if len(location) == 2:
+            curr_attraction['city'] = location[0]
+            curr_attraction['country'] = location[1].strip()
+        elif len(location) == 1:
+            curr_attraction['country'] = location[0]
+            curr_attraction['country'] = None
         curr_attraction['description'] = d
         curr_attraction['coordinates'] = coord
 
         attractions.append(curr_attraction)
+
+        count += 1
+        if count >= limit:
+            break
 
 
     return attractions

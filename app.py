@@ -24,15 +24,14 @@ class Destinations(Resource):
 
 class Attractions(Resource):
     def get(self, country):
-        try:
-            city = request.args.get('city', default=None)
-            sort = request.args.get('sort', default='ranked')
-            limit = request.args.get('limit', type=int, default=0)
-            offset = request.args.get('offset', type=int, default=0)
-            data = scraper.getAttractions(country, city, sort, limit, offset)
-            return scraper.makeResponseData('success', 'Attractions', data)
-        except:
-            return scraper.makeResponseData('failure', 'Attractions')
+
+        city = request.args.get('city', default=None)
+        sort = request.args.get('sort', default='ranked')
+        limit = request.args.get('limit', type=int, default=16)
+        offset = request.args.get('offset', type=int, default=0)
+        data = scraper.getAttractions(country, city, sort, limit, offset)
+        return scraper.makeResponseData('success', 'Attractions', data)
+
 
 api.add_resource(Home, '/')
 api.add_resource(Destinations, '/api/destinations')
