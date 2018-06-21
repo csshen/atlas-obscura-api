@@ -2,7 +2,18 @@ import urllib.parse
 import requests
 from bs4 import BeautifulSoup
 
-def getDestinations(): 
+def makeResponseData(status, name, data=None):
+    response = {}
+    response['status'] = status
+    if data:
+        response['results'] = len(data)
+        response[name] = data
+    else:
+        response['results'] = None
+        response[name] = None
+    return response
+
+def getDestinations(region): 
     url = 'https://www.atlasobscura.com/destinations'
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -15,25 +26,38 @@ def getDestinations():
         for country in continent_soup.find_all('a', class_='detail-md non-decorated-link'):
             destinations[continent_name].append(country.text);
 
-    return destinations
+    # region parameter
+    if region:
+        return destinations[region.replace('-', ' ')]
+    else:
+        return destinations
         
 
-def getAttractions(country, city, sort):
+def getAttractions(country, city, sort, limit, offset):
     # base url
     url = 'https://www.atlasobscura.com/things-to-do/'
     # specify CITY
     if city:
         url += city + '-'
     # specify COUNTRY
-    url += country + '/places'
+    url += country + '/places?'
+
+    # QUERY PARAMS
+    # specify PAGE
+    if 0 < offset and offset <= 16:
+        url += '&page=' + str(offset + 1)
     # specify SORT
     if sort == 'recent':
-        url += '?sort=recent'
+        url += '&sort=recent'
 
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     attractions = []
-    for card in soup.find_all('div', class_='index-card-wrap'):
+
+    cards = soup.find_all('div', class_='index-card-wrap')
+    limit = len(cards) if limit == 0 else limit
+    for i in range(limit):
+        card = cards[i]
         # CREATE NEW ATTRACTION
         curr_attraction = {}
 
