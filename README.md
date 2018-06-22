@@ -11,7 +11,7 @@ From the [wikipedia page](https://en.wikipedia.org/wiki/Atlas_Obscura):
 > It catalogs unusual and obscure travel destinations, and relies heavily on user-generated content. It features a mixture of feature and news articles on topics including history, science and some news, in addition to travel and exploration, as well as hosting a collaborative "guide" to the world's most obscure places.
 
 ## API Documentation
-![v0.3.0 | NEW!](https://img.shields.io/badge/Release v0.3.0-NEW!-brightgreen.svg)
+![v0.3.0 | NEW!](https://img.shields.io/badge/Release%20v0.3.0-NEW!-brightgreen.svg)
 ### What's new in this version?
 * Added endpoints for Gastro Obscura, a spinoff of Atlas Obscura for cuisine and restaurants.  
 * Added query parameter to filter by U.S. state.
@@ -151,7 +151,7 @@ Use this endpoint to return Gastro Obscura places and restaurants.
 | offset `optional`    | Number | Results are paginated as on the website; each page returns a maximum of 18 results. Specifies offset from first page.<br>Default Value: `0`|
 
 #### Sample Response
-`GET` `https://atlas-obscura-api.herokuapp.com/api/gastro/places?limit=3`
+`GET` `https://atlas-obscura-api.herokuapp.com/api/gastro/places?limit=2`
 ```javascript
 {
   status: "success",
