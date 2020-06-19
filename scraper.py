@@ -58,21 +58,20 @@ def getAttractions(country, city, state, sort, limit, offset):
     attractions = []
 
     for card in soup.find_all('a',
-    class_='content-card content-card-place')[:limit]:
+    class_='Card --content-card-v2 --content-card-item Card--flat')[:limit]:
         # CREATE NEW ATTRACTION
         curr_attraction = {}
         # LOCATION (City, Town)
         curr_attraction['location'] = card.find('div',
-        class_='detail-sm place-card-location').text
+        class_='Card__hat --place').text
         # NAME
-        curr_attraction['name'] = card.find('span',
-        class_='title-underline js-title-content').text
+        curr_attraction['name'] = card.find('h3',
+        class_='Card__heading --content-card-v2-title').find("span").text
         # Description
         curr_attraction['description'] = card.find('div',
-        class_='subtitle-sm content-card-subtitle js-subtitle-content').text
+        class_='Card__content js-subtitle-content').text
         # Coordinates
-        curr_attraction['coordinates'] = [float(c) for c in card.find('div',
-        class_='lat-lng').text.split(',')]
+        curr_attraction['coordinates'] = [float(card["data-lat"]), float(card["data-lng"])]
         # Image Thumbnail
         curr_attraction['img'] = card.find('img')['data-src']
         # PATH
