@@ -47,7 +47,7 @@ def getAttractions(country, city, state, sort, limit, offset):
     url += country + '/places?'
     # QUERY PARAMS
     # specify PAGE
-    if 0 < offset and offset <= 16:
+    if 0 < offset:
         url += '&page=' + str(offset + 1)
     # specify SORT
     if sort == 'recent':
