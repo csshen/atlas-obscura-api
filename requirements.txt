@@ -19,6 +19,6 @@ pytesseract==0.2.0
 pytz==2018.4
 requests==2.18.4
 six==1.11.0
-urllib3==1.22
+urllib3==1.26.5
 virtualenv==16.0.0
 Werkzeug==0.14.1
