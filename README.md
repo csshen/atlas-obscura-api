@@ -1,4 +1,4 @@
-# Atlas Obscura Unofficial API
+# Atlas Obscura Unofficial API (test update)
 ![version 0.1.0](https://img.shields.io/badge/Release-v0.3.0-brightgreen.svg) ![python-flask](https://img.shields.io/badge/python-flask-orange.svg)  
 
 A simple Flask-RESTful api for [Atlas Obscura](https://www.atlasobscura.com/).  
